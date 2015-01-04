@@ -24,4 +24,5 @@ where
 
 ## All in one run
 If you don't have time to fiddle arount, you can also just copy this line in a shell  
-`chmod +x all-in-one.sh && ./all-in-one.sh && cat ./api-statistics.csv`
+`git clone https://github.com/sne11ius/jdocstat.git && cd jdocstat && chmod +x all-in-one.sh && ./all-in-one.sh && cat ./api-statistics.csv`  
+The script assumes you have JavaDocs for all API versions in `~/Downloads/java-api/[version]/`
