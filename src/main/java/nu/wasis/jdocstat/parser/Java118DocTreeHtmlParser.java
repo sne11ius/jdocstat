@@ -8,7 +8,6 @@ import nu.wasis.jdocstat.cli.JDocStatConfig;
 import nu.wasis.jdocstat.domain._Class;
 import nu.wasis.jdocstat.domain._Method;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,8 +18,6 @@ public class Java118DocTreeHtmlParser extends AbstractDocTreeHtmlParser implemen
 
     private static final Logger LOG = LogManager.getLogger();
 
-    private static final String UTF_8 = "UTF-8";
-
     public Java118DocTreeHtmlParser(final JDocStatConfig config) {
         super(config);
         LOG.warn("Deprecation info not available for " + config.getJavaVersion() + ".");
@@ -29,10 +26,7 @@ public class Java118DocTreeHtmlParser extends AbstractDocTreeHtmlParser implemen
     @Override
     protected _Class parseSingleClassDocument(final File classHtml) throws IOException {
         final Document doc = Jsoup.parse(classHtml, UTF_8, "");
-        final String fullName = FilenameUtils.removeExtension(classHtml.getName());
-        final String _package = StringUtils.substringBeforeLast(fullName, ".");
-        final String className = StringUtils.substringAfterLast(fullName, ".");
-        final _Class _class = new _Class(className, _package, false);
+        final _Class _class = Java102DocTreeHtmlParser.createClass(classHtml);
         doc.select("a:not([href])").forEach(el -> {
             if (!el.attr("name").contains("(")) {
                 return;

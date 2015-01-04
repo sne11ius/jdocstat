@@ -25,9 +25,9 @@ public class Java17DocTreeHtmlParser extends AbstractDeprecationSupportingDocTre
 
     @Override
     protected _Class parseSingleClassDocument(final File classHtml) throws IOException {
-        final String className = FilenameUtils.removeExtension(classHtml.getName());
         final Document doc = Jsoup.parse(classHtml, UTF_8, "");
         final String _package = doc.select(".subTitle").text();
+        final String className = FilenameUtils.removeExtension(classHtml.getName());
         final _Class _class = new _Class(className, _package, isClassDeprecated(_package + "." + className));
         doc.select("a:not([href])").forEach(a -> {
             if (!a.attr("name").contains("(")) {

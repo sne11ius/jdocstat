@@ -22,17 +22,15 @@ public class Java18DocTreeHtmlParser extends Java17DocTreeHtmlParser implements 
 
     private static final Logger LOG = LogManager.getLogger();
 
-    private static final String UTF_8 = "UTF-8";
-
     public Java18DocTreeHtmlParser(final JDocStatConfig config) {
         super(config);
     }
 
     @Override
     protected _Class parseSingleClassDocument(final File classHtml) throws IOException {
-        final String className = FilenameUtils.removeExtension(classHtml.getName());
         final Document doc = Jsoup.parse(classHtml, UTF_8, "");
         final String _package = doc.select(".subTitle").text();
+        final String className = FilenameUtils.removeExtension(classHtml.getName());
         final _Class _class = new _Class(className, _package, isClassDeprecated(_package + "." + className));
         doc.select("td.colLast").forEach(td -> {
             if (!td.text().contains("(")) {

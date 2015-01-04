@@ -31,10 +31,7 @@ public class Java102DocTreeHtmlParser extends AbstractDocTreeHtmlParser implemen
     @Override
     protected _Class parseSingleClassDocument(final File classHtml) throws IOException {
         final Document doc = Jsoup.parse(classHtml, UTF_8, "");
-        final String fullName = FilenameUtils.removeExtension(classHtml.getName());
-        final String _package = StringUtils.substringBeforeLast(fullName, ".");
-        final String className = StringUtils.substringAfterLast(fullName, ".");
-        final _Class _class = new _Class(className, _package, false);
+        final _Class _class = createClass(classHtml);
         doc.select("h3 a:not([href]), a code").forEach(el -> {
             if (el.html().contains("<dl>")) {
                 return;
@@ -63,6 +60,14 @@ public class Java102DocTreeHtmlParser extends AbstractDocTreeHtmlParser implemen
             final List<String> argTypes = findArgTypes(el);
             _class.addMethod(new _Method(methodName, argTypes, false));
         });
+        return _class;
+    }
+
+    public static _Class createClass(final File classHtml) {
+        final String fullName = FilenameUtils.removeExtension(classHtml.getName());
+        final String packageName = StringUtils.substringBeforeLast(fullName, ".");
+        final String className = StringUtils.substringAfterLast(fullName, ".");
+        final _Class _class = new _Class(className, packageName, false);
         return _class;
     }
 

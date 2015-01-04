@@ -9,6 +9,6 @@
 		<Root level="error">
 			<AppenderRef ref="Console" />
 		</Root>
-		<Logger name="nu.wasis" level="WARN"/>
+		<Logger name="nu.wasis" level="ERROR"/>
 	</Loggers>
 </Configuration>
