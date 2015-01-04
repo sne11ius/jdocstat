@@ -39,9 +39,11 @@ public class JDocStat {
             // OUT.println(apiDescriptor);
             if (null != apiDescriptor) {
                 final List<String> deprecatedClasses = apiDescriptor.getClasses().stream().filter(c -> c.isDeprecated()).map(c -> c.getClassName()).collect(Collectors.toList());
-                OUT.println("# Deprecated classes: " + deprecatedClasses.size());
+                // OUT.println("# Deprecated classes: " +
+                // deprecatedClasses.size());
                 final List<_Method> deprecatedMethods = apiDescriptor.getClasses().stream().flatMap(c -> c.getMethods().stream()).filter(m -> m.isDeprecated()).collect(Collectors.toList());
-                OUT.println("# Deprecated methods: " + deprecatedMethods.size());
+                // OUT.println("# Deprecated methods: " +
+                // deprecatedMethods.size());
                 // OUT.println("All classes: " +
                 // apiDescriptor.getClasses().stream().map(c ->
                 // c.getClassName()).collect(Collectors.toList()));
