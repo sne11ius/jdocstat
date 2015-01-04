@@ -9,14 +9,14 @@ echo API version, \# Classes, \# Methods, \# Deprecated Classes, \# Deprecated M
 
 for version in V_1_0_2 V_1_1_8
 do
-	CURRENT_DIR=$BASE_DIR/$version/tree.html
-	echo Parsing $CURRENT_DIR...
-	java -jar $EXECUTABLE -v $version -f $CURRENT_DIR >> api-statistics.csv
+	CURRENT_FILE=$BASE_DIR/$version/tree.html
+	echo Parsing $CURRENT_FILE...
+	java -jar $EXECUTABLE -v $version -f $CURRENT_FILE >> api-statistics.csv
 done
 
 for version in V_1_2 V_1_3_1 V_1_4_2 V_1_5 V_1_6 V_1_7 V_1_8
 do
-	CURRENT_DIR=$BASE_DIR/$version/overview-tree.html
-	echo Parsing $CURRENT_DIR...
-	java -jar $EXECUTABLE -v $version -f $CURRENT_DIR >> api-statistics.csv
+	CURRENT_FILE=$BASE_DIR/$version/overview-tree.html
+	echo Parsing $CURRENT_FILE...
+	java -jar $EXECUTABLE -v $version -f $CURRENT_FILE >> api-statistics.csv
 done
