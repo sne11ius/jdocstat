@@ -136,7 +136,7 @@ public class JDocStat {
 
     private static void printHelp(final CmdLineParser parser) throws IOException {
         final Writer stringWriter = new StringWriter();
-        stringWriter.append("Usage: rcmp [options]\n");
+        stringWriter.append("Usage: [progname] [options]\n");
         parser.printUsage(stringWriter, null);
         OUT.println(stringWriter.toString());
     }
