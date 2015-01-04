@@ -33,31 +33,26 @@ public class JDocStat {
     public static void main(final String... args) throws IOException {
         try {
             final JDocStatConfig config = parseArgs(args);
-            ApiDescriptor apiDescriptor = null;
             final JavaDocTreeHtmlParser parser = createParser(config);
-            apiDescriptor = parser.parseHtml();
-            // OUT.println(apiDescriptor);
+            final ApiDescriptor apiDescriptor = parser.parseHtml();
             if (null != apiDescriptor) {
-                final List<String> deprecatedClasses = apiDescriptor.getClasses().stream().filter(c -> c.isDeprecated()).map(c -> c.getClassName()).collect(Collectors.toList());
-                // OUT.println("# Deprecated classes: " +
-                // deprecatedClasses.size());
-                final List<_Method> deprecatedMethods = apiDescriptor.getClasses().stream().flatMap(c -> c.getMethods().stream()).filter(m -> m.isDeprecated()).collect(Collectors.toList());
-                // OUT.println("# Deprecated methods: " +
-                // deprecatedMethods.size());
-                // OUT.println("All classes: " +
-                // apiDescriptor.getClasses().stream().map(c ->
-                // c.getClassName()).collect(Collectors.toList()));
+                final List<String> deprecatedClasses = apiDescriptor.getClasses()
+                        .stream()
+                        .filter(c -> c.isDeprecated())
+                        .map(c -> c.getClassName())
+                        .collect(Collectors.toList());
+                final List<_Method> deprecatedMethods = apiDescriptor.getClasses()
+                        .stream()
+                        .flatMap(c -> c.getMethods().stream())
+                        .filter(m -> m.isDeprecated())
+                        .collect(Collectors.toList());
                 final int numClasses = apiDescriptor.getClasses().size();
-                final int numMethods = apiDescriptor.getClasses().stream().mapToInt(c -> c.getMethods().size()).sum();
-                OUT.println(apiDescriptor.getJavaVersion().toString().replaceAll("V_", "").replaceAll("_", ".") + ", " + numClasses + ", " + numMethods + ", " + deprecatedClasses.size() + ", "
-                        + deprecatedMethods.size());
-                // OUT.println("Api version: " +
-                // apiDescriptor.getJavaVersion());
-                // OUT.println("# Classes: " +
-                // apiDescriptor.getClasses().size());
-                // OUT.println("# Methods: " +
-                // apiDescriptor.getClasses().stream().mapToInt(c ->
-                // c.getMethods().size()).sum());
+                final int numMethods = apiDescriptor.getClasses()
+                        .stream()
+                        .mapToInt(c -> c.getMethods().size())
+                        .sum();
+                final String version = apiDescriptor.getJavaVersion().toString().replaceAll("V_", "").replaceAll("_", ".");
+                OUT.println(version + ", " + numClasses + ", " + numMethods + ", " + deprecatedClasses.size() + ", " + deprecatedMethods.size());
             }
         } catch (final IllegalArgumentException e) {
             if (!(e instanceof ArgumentParsingException) && null != e.getMessage()) {
