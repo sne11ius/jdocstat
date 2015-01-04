@@ -1,5 +1,5 @@
 # jdocstat
-Generates simple statistics from JavaDoc
+Generate simple statistics from JavaDoc
 
 ## Usage
 Run `mvn compile assembly:single` to generate a all-in-one runnable jar.
