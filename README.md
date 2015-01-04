@@ -13,7 +13,7 @@ The overview tree html file from the JavaDocs to parse. This is the `tree.html` 
 
 Example:  
 `java -jar ./target/jdocstat-0.0.1-SNAPSHOT-jar-with-dependencies.jar -v V_1_5 -f ~/Downloads/java-api/V_1_5/overview-tree.html`  
-Will create this output:  
+will create this output:  
 `1.5, 3548, 31814, 51, 317`,
 where  
 1.5   = Api-Version  
