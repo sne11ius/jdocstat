@@ -97,36 +97,32 @@ public class JDocStat {
         }
 
         if (null == options.getJavaVersion()) {
-            ERR.println("No Java version specified.");
-            printHelp(parser);
-            throw new ArgumentParsingException();
+            bailOut(parser, "No Java version specified.");
         }
 
         if (null == options.getTreeFile()) {
-            ERR.println("No tree file specified.");
-            printHelp(parser);
-            throw new ArgumentParsingException();
+            bailOut(parser, "No tree file specified.");
         }
 
         final JavaVersion javaVersion = JavaVersion.valueOf(options.getJavaVersion());
         final File treeFile = options.getTreeFile();
         if (!treeFile.exists()) {
-            ERR.println("Tree file not found.");
-            printHelp(parser);
-            throw new ArgumentParsingException();
+            bailOut(parser, "Tree file not found.");
         }
         if (!treeFile.isFile()) {
-            ERR.println("Tree file not a regular file.");
-            printHelp(parser);
-            throw new ArgumentParsingException();
+            bailOut(parser, "Tree file not a regular file.");
         }
         if (!treeFile.canRead()) {
-            ERR.println("Tree file not readable.");
-            printHelp(parser);
-            throw new ArgumentParsingException();
+            bailOut(parser, "Tree file not readable.");
         }
 
         return new JDocStatConfig(javaVersion, treeFile);
+    }
+
+    private static void bailOut(final CmdLineParser parser, final String message) throws IOException {
+        ERR.println(message);
+        printHelp(parser);
+        throw new ArgumentParsingException();
     }
 
     private static void printHelp(final CmdLineParser parser) throws IOException {
